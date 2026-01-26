@@ -1,0 +1,35 @@
+{
+  "folders": [
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.profiles.osx": {
+      "zsh": {
+        "path": "/bin/zsh"
+      },
+      "kiro-cli": {
+        "path": "/bin/zsh",
+        "args": ["-c", "kiro-cli chat"]
+      }
+    }
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Setup Split Terminals",
+        "type": "shell",
+        "command": "osascript -e 'tell application \"System Events\" to tell process \"Code\" to keystroke \"`\" using {command down}' && sleep 0.5 && osascript -e 'tell application \"System Events\" to tell process \"Code\" to keystroke \"\\\\\" using {command down}' && sleep 0.5 && osascript -e 'tell application \"System Events\" to tell process \"Code\" to keystroke \"kiro-cli chat\"' && sleep 0.2 && osascript -e 'tell application \"System Events\" to tell process \"Code\" to key code 36'",
+        "presentation": {
+          "reveal": "never"
+        },
+        "runOptions": {
+          "runOn": "folderOpen"
+        }
+      }
+    ]
+  }
+}
