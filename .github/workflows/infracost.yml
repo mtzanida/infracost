@@ -3,9 +3,9 @@ name: Infracost
 on:
   pull_request:
     paths:
-      - "**.tf"
-      - "**.tfvars"
-      - ".github/workflows/infracost.yml"
+      - '**.tf'
+      - '**.tfvars'
+      - '.github/workflows/infracost.yml'
 
 jobs:
   infracost:
