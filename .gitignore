@@ -1,5 +1,29 @@
-# Ignore the following files and directories
+# Python
 *.pyc
 __pycache__/
 *.log
-secrets.yaml  # Don't track secrets file
+
+# Secrets
+secrets.yaml
+secrets.enc.yaml
+
+# Terraform
+*.tfstate
+*.tfstate.*
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
