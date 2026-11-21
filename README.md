@@ -1,74 +1,23 @@
-# Infracost Template
+# Terraform Cost Estimation Template
 
-A GitHub template for Terraform projects with automated cost estimation using [Infracost](https://www.infracost.io/).
+A Terraform project template that uses Infracost in GitHub Actions to estimate infrastructure costs and publish a cost comment on pull requests.
 
-## Features
+**Status:** Includes example EC2/S3 configuration and a PR workflow. Cost estimation reads Terraform configuration; the workflow does not apply infrastructure.
 
-- **Automated Cost Estimates**: Infracost workflow comments on PRs with infrastructure cost changes
-- **Pre-commit Hooks**: Code quality and consistency checks
-- **Secrets Management**: SOPS integration for secure credential handling
-- **GitHub Workflows**: CI/CD pipelines and automated labeling
+## Architecture
 
-## Quick Start
-
-1. **Use this template** to create a new repository
-
-2. **Set up Infracost**:
-   - Get a free API key from [Infracost](https://www.infracost.io/)
-   - Add it as a repository secret: `INFRACOST_API_KEY`
-
-3. **Add Terraform files** and create a PR to see cost estimates
-
-## Workflows
-
-- **infracost.yml**: Runs on PRs with Terraform changes, posts cost estimates
-- **ci.yml**: Continuous integration for main branch
-- **add_labels.yml**: Automated issue and PR labeling
-
-## Managing Secrets with SOPS
-
-### Installation
-
-**macOS:**
-```bash
-brew install sops
+```mermaid
+flowchart TD
+  PR["Pull request changes Terraform"] --> Workflow["GitHub Actions Infracost job"]
+  HCL["Terraform configuration"] --> Workflow
+  Key["INFRACOST_API_KEY secret"] --> Workflow
+  Workflow --> Estimate["Infracost JSON estimate"]
+  Estimate --> Comment["Updated pull-request cost comment"]
+  Comment --> Review["Infrastructure review"]
 ```
 
-**Windows:**
-```bash
-choco install sops
-```
+## Start here
 
-**Linux:**
-Download from [sops releases](https://github.com/mozilla/sops/releases)
+Create a project from this template and configure the `INFRACOST_API_KEY` repository secret. Inspect [.github/workflows/infracost.yml](.github/workflows/infracost.yml) and [terraform/main.tf](terraform/main.tf). Replace the example infrastructure values before any separate deployment.
 
-### Usage
-
-1. **Create a GPG key** (if needed):
-   ```bash
-   gpg --full-generate-key
-   ```
-
-2. **Encrypt secrets**:
-   ```bash
-   sops --encrypt --gpg your_gpg_key_id secrets.yaml > secrets.enc.yaml
-   ```
-
-3. **Decrypt secrets**:
-   ```bash
-   sops -d secrets.enc.yaml
-   ```
-
-4. **Add to .gitignore**:
-   ```gitignore
-   secrets.yaml
-   secrets.enc.yaml
-   ```
-
-## Contributing
-
-See [COPIER_SETUP.md](COPIER_SETUP.md) for template setup instructions.
-
-## License
-
-This template is provided as-is for use in your projects.
+[Previous README and detailed reference](https://github.com/mtzanida/infracost/blob/bab4ad94c172a566df765a0d50419a2cde98b7a1/README.md) are retained in Git history. They may describe older assumptions or unmerged plans; the scope above reflects this branch.
